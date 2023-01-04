@@ -1,5 +1,5 @@
-import { useState, useEffect, createContext, useContext } from 'react'
 import React from 'react'
+import {useState, useContext, createContext } from 'react'
 
 const UserContext = createContext();
 
@@ -8,16 +8,16 @@ function ColorPicker ({colorSelected}) {
   return (
     <div>
       <h1>Choose a color</h1>
-      {colors.map(color => <button key={color} style={{ backgroundColor: color }} onClick={ () => colorSelected(color) } />)}
+      {colors.map(color => <button key={color} style={{ backgroundColor: color }} onClick={() => colorSelected(color) } />)}
     </div>
   )
 }
 
 function Pixel () {
   const selection = useContext(UserContext);
-  const [color, setColor] = useState(selection.color);
+  const[color, setColor] = useState(selection.color);
 
-  return <div style={{ height: '20px', width: '20px', backgroundColor: `${color}`, margin: '1px' }} onClick={ () => { setColor(selection.color) } }/>
+  return <div style={{ height: '20px', width: '20px', backgroundColor: `${color}`, margin: '1px' }} onClick={ () => setColor(selection.color) } />
 }
 
 function Pixels () {
@@ -32,16 +32,13 @@ function Pixels () {
 
 export default function PixelArt () {
 
-  const[selection, setSelection] = useState({ cell: '', color: 'lightGrey' });
-
-  // useEffect (() => {
-  // }, [selection.color])
+  const [selection, setSelection] = useState({ cell: '', color: 'lightGrey' })
 
   return (
-    <UserContext.Provider value={selection}>
+    <UserContext.Provider value={selection} >
       <div>
-        <ColorPicker colorSelected={ (c) => setSelection({ cell: selection.cell, color: c})} />
-        <Pixels  />
+        <ColorPicker colorSelected={(c) => setSelection({ cell: selection.cell, color: c }) } />
+        <Pixels />
       </div>
     </UserContext.Provider>
   )
